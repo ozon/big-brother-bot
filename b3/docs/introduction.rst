@@ -24,7 +24,7 @@ Features
 * Highly customizable with plugins
 
     * Core plugins
-        B3 comes with 11 official plugins. Go to the :ref:Usage` <configuration>` for a complete listing of all the available plugins.
+        B3 comes with 11 official plugins. Go to the :ref:`Plugins reference <core-plugins>` for a complete listing of all the available plugins.
 
     * 3rd Party plugins
         The community offers over 130 `plugins`_.
