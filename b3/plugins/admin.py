@@ -898,6 +898,58 @@ class AdminPlugin(b3.plugin.Plugin):
             cmd.sayLoudOrPM(client, '%s ^7- uptime: [^2%s^7]' % (
                 b3.version, functions.minutesStr(self.console.upTime() / 60.0)))
 
+    def cmd_plugin(self, data, client, cmd=None):
+        """\
+        <plugin> [start|stop|list] - Start/Stop a plugin
+        """
+        plugin = None
+        plugin_name = None
+        action = None
+        skip_plugins = ['admin']    # List of plugins that can not be disabled/enabled
+
+        if not data:
+            client.message('')
+            return
+
+        args = cmd.parseData(data)
+        # parse arg[0] and setup plugin
+        if args[0].lower() == 'list':
+            client.message('Available Plugins: %s' % ', '.join([p for p, c in self.console._plugins.items()]))
+            return
+        elif args[0].lower() in self.console._plugins:
+            plugin_name = args[0].lower()
+            plugin = self.console.getPlugin(plugin_name)
+        else:
+            client.message('No plugin named %s found. Use "!plugin list" to show a list of loaded plugins.' % args[0])
+            return
+        # parse arg[1] and setup action
+        if len(args) >= 2 and args[1] in ('start', 'stop'):
+            action = args[1]
+        else:
+            client.message(self.getMessage('invalid_parameters'))
+            return
+
+        if action == 'start':
+            if plugin_name in skip_plugins:
+                client.message('^7You cannot enable the %s plugin.' % plugin_name)
+            elif plugin.isEnabled():
+                client.message('^7Plugin %s is already enabled.' % data)
+            else:
+                plugin.enable()
+                self.console.say('^7%s is now ^2ON' % plugin.__class__.__name__)
+        elif action == 'stop':
+            if plugin_name in skip_plugins:
+                client.message('^7You cannot disable the %s plugin.' % plugin_name)
+            elif not plugin.isEnabled():
+                client.message('^7Plugin %s is already disabled.' % data)
+            else:
+                plugin.disable()
+                self.console.say('^7%s is now ^1OFF' % plugin.__class__.__name__)
+
+
+
+
+
     def cmd_enable(self, data, client, cmd=None):
         """\
         <plugin> - enable a disabled plugin
