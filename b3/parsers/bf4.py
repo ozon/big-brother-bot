@@ -500,6 +500,26 @@ COMROSE_CHAT_NAME_BY_ID = {
     'ID_CHAT_SORRY': 'SORRY',
 }
 
+GAME_MODE_ALIASES = {
+    'CQL0': 'ConquestLarge0',
+    'CQS0': 'ConquestSmall0',
+    'OBL': 'Obliteration',
+    'AS0': 'AirSuperiority0',
+    'CTF0': 'CaptureTheFlag0',
+    'CAL0': 'CarrierAssaultLarge0',
+    'CAS0': 'CarrierAssaultSmall0',
+    'CHA0': 'Chainlink0',
+    'ELI0': 'Elimination0',
+    'DOM0': 'Domination0',
+    'SDM0': 'SquadDeathMatch0',
+    'TDM0': 'TeamDeathMatch0',
+    'RL0': 'RushLarge0'
+}
+
+# List with ignored game modes and map names
+IGNORED_GAME_MODES = ['SDM3']
+IGNORED_MAP_IDS = ['MP_Damage']
+
 
 class Bf4Parser(AbstractParser):
 
@@ -959,6 +979,29 @@ class Bf4Parser(AbstractParser):
                 pass
         self.game.serverinfo = data2
         return data
+
+    def getAvailableServerMaps(self):
+        """
+        :return:
+        """
+        # example response
+        perMap = ['MP_Resort', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP4_WlkrFtry', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP2_003', 'RL0', 'CAS0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CAL0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP0_Caspian', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Prison', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP0_Firestorm', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP4_Arctic', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP0_Metro', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Journey', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP1_004', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'AS0', 'OBL', 'MP_Tremors', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP1_003', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'AS0', 'OBL', 'XP4_Titan', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP0_Oman', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Naval', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Flooded', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP3_UrbanGdn', 'RL0', 'CHA0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP2_002', 'RL0', 'CAS0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CAL0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP4_SubBase', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP1_002', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'AS0', 'OBL', 'XP1_001', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'AS0', 'OBL', 'MP_TheDish', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Damage', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Siege', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP3_WtrFront', 'RL0', 'CHA0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP3_MarketPl', 'RL0', 'CHA0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'MP_Abandoned', 'RL0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP2_001', 'RL0', 'CAS0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CAL0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP3_Prpganda', 'RL0', 'CHA0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CTF0', 'ELI0', 'CQL0', 'TDM0', 'OBL', 'XP2_004', 'RL0', 'CAS0', 'CQS0', 'SDM0', 'SDM3', 'DOM0', 'CAL0', 'ELI0', 'CQL0', 'TDM0', 'OBL']
+        # perGameMode: ['SDM0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'SDM3', 'MP_Damage', 'CQS0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'CAS0', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'RL0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'AS0', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'CHA0', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'TDM0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'CAL0', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'DOM0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'ELI0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'OBL', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish', 'CTF0', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'CQL0', 'XP0_Caspian', 'XP0_Metro', 'XP0_Firestorm', 'XP0_Oman', 'XP1_003', 'XP1_004', 'XP1_001', 'XP1_002', 'XP2_003', 'XP2_001', 'XP2_004', 'XP2_002', 'XP3_Prpganda', 'XP3_MarketPl', 'XP3_UrbanGdn', 'XP3_WtrFront', 'XP4_SubBase', 'XP4_WlkrFtry', 'XP4_Arctic', 'XP4_Titan', 'MP_Naval', 'MP_Abandoned', 'MP_Tremors', 'MP_Prison', 'MP_Flooded', 'MP_Journey', 'MP_Siege', 'MP_Damage', 'MP_Resort', 'MP_TheDish']
+
+        _response = self.write(('maplist.availableMaps', 'perMap'))
+
+        _game_modes_by_map_id = dict()
+        _last_found_map_id = None
+        for item in _response:
+            if item not in (IGNORED_GAME_MODES or IGNORED_MAP_IDS):
+                if item not in _game_modes_by_map_id and len(item) > 4:
+                    _last_found_map_id = item
+                    _game_modes_by_map_id[_last_found_map_id] = []
+                else:
+                    _game_mode = item if item not in GAME_MODE_ALIASES else GAME_MODE_ALIASES[item]
+                    _game_modes_by_map_id[_last_found_map_id].append(_game_mode)
+
+        return _game_modes_by_map_id
 
     def getTeam(self, team, type_id=None):
         """
